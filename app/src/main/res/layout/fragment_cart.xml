@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".cartModule.CartFragment">
+
+    <TextView
+        android:id="@+id/tvCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_check_list"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:layout_margin="@dimen/common_padding_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        tools:listitem="@layout/item_cart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCheck"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="@dimen/cart_divider_width"
+        android:layout_height="@dimen/cart_divider_height"
+        android:background="@color/divider"
+        android:layout_marginEnd="@dimen/common_padding_middle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView"/>
+
+    <TextView
+        android:id="@+id/tvSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline4"
+        tools:text="Total: $10.00"
+        app:layout_constraintEnd_toEndOf="@id/divider"
+        app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_btn_pay"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        app:icon="@drawable/ic_payment"
+        app:iconGravity="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_btn_back"
+        android:layout_marginStart="@dimen/common_padding_default"
+        app:icon="@drawable/ic_arrow_back_ios"
+        app:iconPadding="@dimen/common_padding_none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnPay"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

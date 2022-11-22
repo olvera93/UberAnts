@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">UberAnts</string>
+    <string name="app_name">Ubant Eats</string>
+
+    <string name="item_product_name_hint">Nombre del producto</string>
+    <string name="item_product_photo_description">Imagen del producto</string>
+
+    <string name="cart_btn_back">Atrás</string>
+    <string name="cart_btn_pay">Pagar</string>
+    <string name="cart_check_list">Pedido:</string>
+    <string name="cart_price">$1.00</string>
+    <string name="cart_sum">Total = $%1$.2f</string>
+    <string name="cart_title">Carrito de compras</string>
+
+    <string name="confirmation_btn_next">Rastrear</string>
+    <string name="confirmation_message">Sus alimentos llegarán pronto, gracias por su compra.</string>
+    <string name="confirmation_status">¡Pago exitoso!</string>
+    <string name="confirmation_title">Pago</string>
+
+    <string name="products_btn_add_cart">Añadir</string>
+
+    <string name="tracking_title">Seguimiento de tu pedido…</string>
 </resources>
