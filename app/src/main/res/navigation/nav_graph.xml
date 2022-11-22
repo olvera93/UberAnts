@@ -11,4 +11,18 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.olvera.uberants.cartModule.CartFragment"
+        android:label="@string/cart_title"
+        tools:layout="@layout/fragment_cart">
+
+        <argument
+            android:name="products"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+
+    </fragment>
+
 </navigation>
