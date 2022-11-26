@@ -11,13 +11,11 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.olvera.uberants.R
 import com.olvera.uberants.databinding.FragmentCartBinding
 
-class CartFragment: Fragment() {
-
+class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
 
     private var products: Array<String>? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +26,8 @@ class CartFragment: Fragment() {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         _binding = FragmentCartBinding.inflate(LayoutInflater.from(context))
         return binding.root
     }
@@ -56,16 +50,18 @@ class CartFragment: Fragment() {
         }
 
         setupTotal(cartAdapter.itemCount.toFloat())
-
     }
 
     private fun setupTotal(total: Float) {
         binding.tvSum.text = getString(R.string.cart_sum, total)
     }
 
-    private fun setupButtons() {
+    private fun setupButtons(){
         binding.btnBack.setOnClickListener {
-            //NavHostFragment.findNavController(this).navigate()
+            NavHostFragment.findNavController(this).navigate(R.id.action_cart_to_products) }
+
+        binding.btnPay.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.action_cart_to_confirmation)
         }
     }
 
@@ -73,5 +69,4 @@ class CartFragment: Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }

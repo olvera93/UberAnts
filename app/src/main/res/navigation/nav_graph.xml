@@ -7,22 +7,45 @@
 
     <fragment
         android:id="@+id/productsFragment"
-       >
-
+        android:name="com.olvera.uberants.productModule.ProductsFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_products_to_car"
+            app:destination="@id/cartFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.olvera.uberants.cartModule.CartFragment"
         android:label="@string/cart_title"
-        tools:layout="@layout/fragment_cart">
-
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cart_to_products"
+            app:destination="@id/productsFragment"/>
         <argument
             android:name="products"
             app:argType="string[]"
             app:nullable="true"
-            android:defaultValue="@null"/>
-
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_cart_to_confirmation"
+            app:destination="@id/confirmationFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="com.olvera.uberants.confirmationModule.ConfirmationFragment"
+        android:label="@string/confirmation_title"
+        tools:layout="@layout/fragment_confirmation" >
+        <action
+            android:id="@+id/action_confirmation_to_tracking"
+            app:destination="@id/trackingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trackingFragment"
+        android:name="com.olvera.uberants.trackingModule.TrackingFragment"
+        android:label="@string/tracking_title"
+        tools:layout="@layout/fragment_tracking" />
 </navigation>

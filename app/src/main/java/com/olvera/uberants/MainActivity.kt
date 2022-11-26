@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -27,8 +26,8 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-        val appBarConfigutarion = AppBarConfiguration.Builder(navController.graph).build()
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfigutarion)
+        val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
+        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             binding.toolbar.title = destination.label
