@@ -11,4 +11,5 @@
     <dimen name="common_padding_large">64dp</dimen>
 
     <dimen name="item_product_height">180dp</dimen>
+    <dimen name="tracking_img_size">40dp</dimen>
 </resources>

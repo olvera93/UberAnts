@@ -1,8 +1,16 @@
 package com.olvera.uberants.common.dataAccess
 
+import com.olvera.uberants.common.entities.DeliveryUser
 import com.olvera.uberants.common.entities.Product
 
 object FakeDatabase {
+
+    fun getDeliveryUser(): DeliveryUser {
+
+        return DeliveryUser("Joy",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Joy_Red_Velvet_in_2019.jpg/190px-Joy_Red_Velvet_in_2019.jpg")
+
+    }
 
     fun getProducts(): List<Product> {
 
