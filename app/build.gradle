@@ -45,6 +45,8 @@ def nav_version = "2.5.3"
 def maps_version = "18.1.0"
 def lifecycle_version = "2.5.1"
 def corrutines_version = "1.6.1"
+def maps_utils_version = "2.3.0"
+def maps_utils_ktx_version= "3.4.0"
 
 dependencies {
 
@@ -68,6 +70,10 @@ dependencies {
 
     // corrutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$corrutines_version"
+
+    // Maps Utils
+    implementation "com.google.maps.android:android-maps-utils:$maps_utils_version"
+    implementation "com.google.maps.android:maps-utils-ktx:$maps_utils_ktx_version"
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'

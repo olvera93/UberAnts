@@ -41,11 +41,28 @@
         <action
             android:id="@+id/action_confirmation_to_tracking"
             app:destination="@id/trackingFragment" />
+        <argument
+            android:name="totalProducts"
+            android:defaultValue="0"
+            app:argType="integer"
+            app:nullable="false" />
     </fragment>
 
     <fragment
         android:id="@+id/trackingFragment"
         android:name="com.olvera.uberants.trackingModule.TrackingFragment"
         android:label="@string/tracking_title"
-        tools:layout="@layout/fragment_tracking" />
+        tools:layout="@layout/fragment_tracking">
+
+        <action
+            android:id="@+id/action_tracking_to_products"
+            app:destination="@+id/productsFragment" />
+
+        <argument
+            android:name="totalProducts"
+            android:defaultValue="0"
+            app:argType="integer"
+            app:nullable="false" />
+
+    </fragment>
 </navigation>

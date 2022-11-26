@@ -61,7 +61,10 @@ class CartFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(R.id.action_cart_to_products) }
 
         binding.btnPay.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(R.id.action_cart_to_confirmation)
+            //NavHostFragment.findNavController(this).navigate(R.id.action_cart_to_confirmation)
+            val action = CartFragmentDirections.actionCartToConfirmation()
+            action.totalProducts = products?.size ?: 0
+            NavHostFragment.findNavController(this).navigate(action)
         }
     }
 

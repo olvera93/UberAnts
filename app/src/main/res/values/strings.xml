@@ -27,4 +27,8 @@
     <string name="tracking_btn_finish">Finalizar</string>
     <string name="tracking_description_photo">Foto del repartidor</string>
     <string name="tracking_name"> %s esta en camino…</string>
+    <string name="tracking_distance">A %s de llegar</string>
+    <string name="tracking_total_product">Una</string>
+    <string name="tracking_label_product">rosquilla</string>
+    <string name="tracking_label_products">rosquillas</string>
 </resources>

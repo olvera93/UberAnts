@@ -37,8 +37,13 @@ class ConfirmationFragment : Fragment(){
 
     private fun setupButtons() {
         binding.btnDone.setOnClickListener {
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_confirmation_to_tracking)
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnDone.isEnabled = false
+            //NavHostFragment.findNavController(this).navigate(R.id.action_confirmation_to_tracking)
+            val action = ConfirmationFragmentDirections.actionConfirmationToTracking()
+            val totalProducts = ConfirmationFragmentArgs.fromBundle(requireArguments()).totalProducts
+            action.totalProducts = totalProducts
+            NavHostFragment.findNavController(this).navigate(action)
         }
     }
 

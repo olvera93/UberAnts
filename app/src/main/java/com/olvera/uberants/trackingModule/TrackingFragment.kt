@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
+import com.google.maps.android.SphericalUtil
 import com.olvera.uberants.R
 import com.olvera.uberants.common.dataAccess.FakeDatabase
+import com.olvera.uberants.common.utils.MapUtils
 import com.olvera.uberants.databinding.FragmentTrackingBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -54,12 +58,13 @@ class TrackingFragment : Fragment(), OnMapReadyCallback {
 
         setupButtons()
         setupDeliveryUserToUI()
+
+        MapUtils.setupMarkersData(requireActivity(), TrackingFragmentArgs.fromBundle(requireArguments()).totalProducts)
     }
 
     private fun setupButtons() {
-        lifecycleScope.launch {
-            delay(1_000)
-            binding.btnFinish.isEnabled = true
+        binding.btnFinish.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.action_tracking_to_products)
         }
     }
 
@@ -82,8 +87,16 @@ class TrackingFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        MapUtils.setupMap(requireActivity(), googleMap)
 
-        map.uiSettings.isZoomControlsEnabled = true
+        //todo move this
+        calcRealDistance(MapUtils.getOriginDelivery())
+    }
+
+    private fun calcRealDistance(location: LatLng) {
+        val distance = SphericalUtil.computeDistanceBetween(location, MapUtils.getDestinationDelivery())
+        binding.tvDistance.setText(getString(R.string.tracking_distance, MapUtils.formatDistance(distance)))
+        binding.btnFinish.isEnabled = distance < 60
     }
 
 
