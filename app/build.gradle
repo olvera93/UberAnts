@@ -47,6 +47,7 @@ def lifecycle_version = "2.5.1"
 def corrutines_version = "1.6.1"
 def maps_utils_version = "2.3.0"
 def maps_utils_ktx_version= "3.4.0"
+def fused_location_version = "21.0.1"
 
 dependencies {
 
@@ -74,6 +75,9 @@ dependencies {
     // Maps Utils
     implementation "com.google.maps.android:android-maps-utils:$maps_utils_version"
     implementation "com.google.maps.android:maps-utils-ktx:$maps_utils_ktx_version"
+
+    // Fused location provider client
+    implementation "com.google.android.gms:play-services-location:$fused_location_version"
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'

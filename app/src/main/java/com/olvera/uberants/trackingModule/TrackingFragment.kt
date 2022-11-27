@@ -1,13 +1,16 @@
 package com.olvera.uberants.trackingModule
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -18,9 +21,8 @@ import com.google.maps.android.SphericalUtil
 import com.olvera.uberants.R
 import com.olvera.uberants.common.dataAccess.FakeDatabase
 import com.olvera.uberants.common.utils.MapUtils
+import com.olvera.uberants.common.utils.MapUtils.locationRequest
 import com.olvera.uberants.databinding.FragmentTrackingBinding
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class TrackingFragment : Fragment(), OnMapReadyCallback {
 
@@ -28,6 +30,25 @@ class TrackingFragment : Fragment(), OnMapReadyCallback {
     private val binding get() = _binding!!
 
     private lateinit var map: GoogleMap
+
+    private var locations = mutableListOf<LatLng>()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private var locationCallBack = object : LocationCallback() {
+        override fun onLocationResult(result: LocationResult) {
+            super.onLocationResult(result)
+
+            result.locations.run {
+                this.forEach{locations.add(LatLng(it.latitude, it.longitude))}
+                MapUtils.addPolyline(map, locations)
+
+                if (locations.isNotEmpty()) {
+                    calcRealDistance(locations.last())
+                    MapUtils.runDeliveryMap(requireActivity(), map, locations.last())
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +71,8 @@ class TrackingFragment : Fragment(), OnMapReadyCallback {
 
         mapFragment?.getMapAsync(this)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         return binding.root
     }
 
@@ -62,9 +85,19 @@ class TrackingFragment : Fragment(), OnMapReadyCallback {
         MapUtils.setupMarkersData(requireActivity(), TrackingFragmentArgs.fromBundle(requireArguments()).totalProducts)
     }
 
+    @SuppressLint("MissingPermission")
     private fun setupButtons() {
         binding.btnFinish.setOnClickListener {
+            fusedLocationClient.removeLocationUpdates(locationCallBack)
             NavHostFragment.findNavController(this).navigate(R.id.action_tracking_to_products)
+        }
+
+        binding.btnGo.setOnClickListener {
+
+            map.clear()
+            MapUtils.addDestinationMarker(map, MapUtils.getDestinationDelivery())
+
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, Looper.getMainLooper())
         }
     }
 
@@ -85,8 +118,13 @@ class TrackingFragment : Fragment(), OnMapReadyCallback {
         _binding = null
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+
+        //todo remove this
+        map.isMyLocationEnabled = true
+
         MapUtils.setupMap(requireActivity(), googleMap)
 
         //todo move this
