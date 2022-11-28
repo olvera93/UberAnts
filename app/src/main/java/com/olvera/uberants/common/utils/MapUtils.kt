@@ -8,7 +8,9 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
+import com.google.maps.android.PolyUtil
 import com.olvera.uberants.R
+import com.olvera.uberants.common.entities.Bounds
 
 object MapUtils {
 
@@ -145,4 +147,29 @@ object MapUtils {
     }
 
     private fun removeOldDeliveryMarker() = deliveryMarker?.remove()
+
+    private var locationSW = LatLng(0.0, 0.0)
+    private var locationNE = LatLng(0.0, 0.0)
+    private var endodedRoute = ""
+
+    fun addRoute(map: GoogleMap, bounds: Bounds? = null, newEncodedRoute: String? = null) {
+        val newLocationSW = bounds?.southwest?.getLocation()
+        val newLocationNE = bounds?.northeast?.getLocation()
+        newLocationSW?.let { locationSW = it }
+        newLocationNE?.let { locationNE = it }
+
+
+        val routeBounds = LatLngBounds(newLocationSW ?: locationSW, newLocationNE ?: locationNE)
+        map.animateCamera(CameraUpdateFactory.newLatLngBounds(routeBounds, 256))
+
+        newEncodedRoute?.let { endodedRoute = it }
+        val decodeRoute = PolyUtil.decode(newEncodedRoute ?: endodedRoute)
+        map.addPolyline(PolylineOptions()
+            .width(4f)
+            .color(Color.WHITE)
+            .jointType(JointType.ROUND)
+            .endCap(RoundCap())
+            .addAll(decodeRoute)
+        )
+    }
 }

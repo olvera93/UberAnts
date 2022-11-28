@@ -31,4 +31,9 @@
     <string name="tracking_total_product">Una</string>
     <string name="tracking_label_product">rosquilla</string>
     <string name="tracking_label_products">rosquillas</string>
+    <string name="tracking_time_title">Tiempo estimado:</string>
+    <string name="tracking_origin">De: %s</string>
+    <string name="tracking_destination">A: %s</string>
+    <string name="tracking_total_distance">Distancia de ruta: %s</string>
+
 </resources>

@@ -48,7 +48,7 @@ def corrutines_version = "1.6.1"
 def maps_utils_version = "2.3.0"
 def maps_utils_ktx_version= "3.4.0"
 def fused_location_version = "21.0.1"
-
+def retrofit_version = "2.9.0"
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -78,6 +78,10 @@ dependencies {
 
     // Fused location provider client
     implementation "com.google.android.gms:play-services-location:$fused_location_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
